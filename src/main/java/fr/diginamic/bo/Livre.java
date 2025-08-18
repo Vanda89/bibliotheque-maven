@@ -1,6 +1,8 @@
 package fr.diginamic.bo;
 
 import jakarta.persistence.*;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "LIVRE")
@@ -15,6 +17,10 @@ public class Livre {
     @Column(name="AUTEUR")
     private String auteur;
 
+    // Non-owning side of the many-to-many relationship with Emprunt
+    @ManyToMany(mappedBy = "livres")
+    private Set<Emprunt> emprunts;
+
     public Livre() {
 
     }
@@ -23,7 +29,6 @@ public class Livre {
         this.titre = titre;
         this.auteur = auteur;
     }
-
 
     public Integer getId() {
         return this.id;
@@ -48,5 +53,13 @@ public class Livre {
 
     public void setAuteur(String auteur) {
         this.auteur = auteur;
+    }
+
+    public Set<Emprunt> getEmprunts() {
+        return emprunts;
+    }
+
+    public void setEmprunts(Set<Emprunt> emprunts) {
+        this.emprunts = emprunts;
     }
 }
